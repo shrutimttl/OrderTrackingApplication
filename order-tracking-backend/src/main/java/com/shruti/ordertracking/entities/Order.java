@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Table(name = "orders")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
@@ -24,4 +26,13 @@ public class Order {
     private int quantity;
     private String status;
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", quantity=" + quantity +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

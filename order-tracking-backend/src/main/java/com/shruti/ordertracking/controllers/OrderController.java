@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shruti.ordertracking.entities.Order;
+import com.shruti.ordertracking.services.KafkaProducerService;
 import com.shruti.ordertracking.services.OrderService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class OrderController {
 
     private final OrderService orderService;
+    private final KafkaProducerService kafkaProducerService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, KafkaProducerService kafkaProducerService) {
         this.orderService = orderService;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
     @GetMapping("/")
@@ -68,6 +71,8 @@ public class OrderController {
                 .status("Created") // Default status
                 .build();
         orderService.createOrder(newOrder);
+        // Send to Kafka
+        kafkaProducerService.sendOrderEvent(newOrder);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Order created for product: " + productName + " with quantity: " + quantity);
     }

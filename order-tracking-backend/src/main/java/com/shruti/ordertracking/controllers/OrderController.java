@@ -32,10 +32,9 @@ public class OrderController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<String> getOrderDetails() {
+    public ResponseEntity<List<Order>> getOrderDetails() {
         List<Order> orders = orderService.getAllOrders();
-        List<String> orderDetails = orders.stream().map(order -> order.toString()).toList();
-        return ResponseEntity.ok("Order details for order ID: " + orderDetails);
+        return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/status/{id}")

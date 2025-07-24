@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import OrderForm from "./components/OrderForm";
+import OrderList from "./components/OrderList";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <h1>Order Tracking System</h1>
       </header>
       <OrderForm />
+      <OrderList />
     </div>
   );
 }

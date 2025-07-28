@@ -28,7 +28,7 @@ const OrderList = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Customer</th>
+            <th>Quantitiy</th>
             <th>Product</th>
             <th>Status</th>
             <th>Date</th>
@@ -39,7 +39,7 @@ const OrderList = () => {
             orders.map((order, index) => (
               <tr key={order.id || index}>
                 <td>{order.id}</td>
-                <td>{order.customerName}</td>
+                <td>{order.quantity}</td>
                 <td>{order.productName}</td>
                 <td>{order.status}</td>
                 <td>{order.orderDate}</td>

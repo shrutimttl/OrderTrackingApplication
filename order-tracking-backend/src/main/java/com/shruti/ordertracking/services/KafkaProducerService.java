@@ -20,7 +20,7 @@ public class KafkaProducerService {
     public void sendOrderEvent(Order order) {
         try {
             String jsonOrder = objectMapper.writeValueAsString(order);
-            kafkaTemplate.send("order-events", jsonOrder);
+            kafkaTemplate.send(TOPIC, jsonOrder);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

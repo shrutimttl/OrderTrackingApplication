@@ -97,13 +97,13 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found for ID: " + id);
         }
         Order existingOrder = orderService.findByOrderId(id);
-        if (order.getProductName() != null) {
+        if (order.getProductName() != "") {
             existingOrder.setProductName(order.getProductName());
         }
         if (order.getQuantity() > 0) {
             existingOrder.setQuantity(order.getQuantity());
         }
-        if (order.getStatus() != null) {
+        if (order.getStatus() != "") {
             existingOrder.setStatus(order.getStatus());
         }
         orderService.createOrder(existingOrder);

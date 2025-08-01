@@ -18,11 +18,12 @@ const ModifyForm = () => {
     setMessage(null);
     setError(null);
     try {
-      const response = axios.patch(`http://localhost:9091/order/${id}`, {
+      const response = await axios.patch(`http://localhost:9091/order/${id}`, {
         productName,
         quantity: parseInt(quantity),
         status,
       });
+      console.log("Order modified successfully:", response.data);
       setMessage(response.data);
       setId("");
       setProductName("");

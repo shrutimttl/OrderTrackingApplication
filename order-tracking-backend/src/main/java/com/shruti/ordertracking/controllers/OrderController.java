@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/order")
 public class OrderController {
 
@@ -97,13 +95,13 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found for ID: " + id);
         }
         Order existingOrder = orderService.findByOrderId(id);
-        if (order.getProductName() != "") {
+        if (order.getProductName() != "" && order.getProductName() != "") {
             existingOrder.setProductName(order.getProductName());
         }
         if (order.getQuantity() > 0) {
             existingOrder.setQuantity(order.getQuantity());
         }
-        if (order.getStatus() != "") {
+        if (order.getStatus() != null && order.getStatus() != "") {
             existingOrder.setStatus(order.getStatus());
         }
         orderService.createOrder(existingOrder);

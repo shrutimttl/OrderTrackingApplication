@@ -1,32 +1,36 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import OrderForm from "./components/OrderForm";
-import OrderList from "./components/OrderList";
-import ModifyForm from "./components/ModifyForm";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import LoginForm from "./components/LoginForm";
+import { useState, useEffect } from "react";
 
 function App() {
-  return (
-    <Router>
-      <div className="container mt-4">
-        <nav className="mb-4">
-          <Link to="/" className="btn btn-primary me-2">
-            Place Order
-          </Link>
-          <Link to="/orders" className="btn btn-secondary">
-            View Orders
-          </Link>
-          <Link to="/modify-orders" className="btn btn-secondary">
-            Modify Order
-          </Link>
-        </nav>
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
-        <Routes>
-          <Route path="/" element={<OrderForm />} />
-          <Route path="/orders" element={<OrderList />} />
-          <Route path="/modify-orders" element={<ModifyForm />} />
-        </Routes>
-      </div>
-    </Router>
+  useEffect(() => {
+    setToken(localStorage.getItem("token")); // refresh token on load
+  }, []);
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          token ? <Navigate to="/dashboard" /> : <Navigate to="/login" />
+        }
+      />
+      <Route path="/login" element={<LoginForm />} />
+      <Route
+        path="/dashboard/*"
+        element={token ? <Dashboard /> : <Navigate to="/login" />}
+      />
+      {/* Add other protected routes like this */}
+    </Routes>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../axiosConfig";
 import { Spinner, Alert, Table } from "react-bootstrap";
 
 const OrderList = () => {
@@ -8,7 +8,7 @@ const OrderList = () => {
   const [error, setError] = useState(null);
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://localhost:9091/order/");
+      const response = await axios.get("/order/");
       setOrders(response.data);
     } catch (err) {
       setError("failed to fetch orders");
